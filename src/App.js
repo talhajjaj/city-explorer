@@ -13,7 +13,9 @@ class App extends React.Component {
       cityData:'',
       searchQuery:'',
       showMap: false,
-      ErrorMessage: false
+      ErrorMessage: false,
+      showWeather:false,
+      searchData:'', 
     }
   }
 
@@ -37,6 +39,18 @@ class App extends React.Component {
       this.setState({
         cityData: resData.data[0],
         showMap:true
+        
+      })
+ let weatherUrl =`http://localhost:3001/`
+      let resWeather = await axios.get(url);
+      console.log(resWeather)
+      console.log(resWeather.data)
+      console.log(resWeather.data[0])
+  
+      this.setState({
+        cityData: resData.data[0],
+        showMap:true
+        
       })
     } catch {
       this.setState({
@@ -53,6 +67,8 @@ this.setState({
         searchQuery: event.target.value
       })
   }
+
+
 
   render() {
     return (
