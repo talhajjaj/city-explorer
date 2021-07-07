@@ -43,7 +43,7 @@ class App extends React.Component {
         
       })
 
- let weatherUrl =`${process.env.REACT_APP_SERVER_KEY}weatherInfo?searchData=${this.state.searchQuery}&lat=40.7484284&lon=-73.9856546198733`
+ let weatherUrl =`https://city-301.herokuapp.com/weatherInfo?searchData=${this.state.searchQuery}&lat=40.7484284&lon=-73.9856546198733`
       let resWeather = await axios.get(weatherUrl);
       console.log(resWeather)
       console.log(resWeather.data)
