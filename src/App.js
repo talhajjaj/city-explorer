@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {Button , Form} from "react-bootstrap";
+import  {Form} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Weather from './component/weather';
 
 
 
@@ -15,16 +16,16 @@ class App extends React.Component {
       showMap: false,
       ErrorMessage: false,
       showWeather:false,
-      searchData:'', 
+      searchData:[], 
     }
   }
 
   getLocation = async (event) => {
     event.preventDefault();
 
-    // await this.setState({
-    //   searchQuery: e.target.city.value
-    // })
+    await this.setState({
+      searchQuery: event.target.city.value
+    })
 
     console.log('',this.state.searchQuery)
 
@@ -41,17 +42,23 @@ class App extends React.Component {
         showMap:true
         
       })
- let weatherUrl =`http://localhost:3001/`
-      let resWeather = await axios.get(url);
+
+ let weatherUrl =`https://city-301.herokuapp.com/weatherInfo?searchData=${this.state.searchQuery}&lat=40.7484284&lon=-73.9856546198733`
+      let resWeather = await axios.get(weatherUrl);
       console.log(resWeather)
       console.log(resWeather.data)
       console.log(resWeather.data[0])
   
       this.setState({
         cityData: resData.data[0],
-        showMap:true
+        showMap:true,
+        ErrorMessage:false,
+        searchData:resWeather.data
+        
         
       })
+      console.log (this.state.searchData)
+      
     } catch {
       this.setState({
         ErrorMessage: true,
@@ -101,7 +108,15 @@ this.setState({
         <p>something went wrong in getting data from locationiq</p>
         }
         
+
+      <p> city name:{this.state.cityData.display_name}</p>
+      {/* <Weather searchData={this.state.searchData}/> */}
+      {this.state.searchData.map(weatherData => {
+          return <Weather description={weatherData.description} date={weatherData.date} />})}
+
       </div>
+      
+      
     )
   }
 }
