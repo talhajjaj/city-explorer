@@ -137,31 +137,34 @@ render(){
 
       <p> city name:{this.state.cityData.display_name}</p>
       {/* <Weather searchData={this.state.searchData}/> */}
-      {this.state.searchData.map((weatherData,index) => {
-        return (
+      {/* {this.state.searchData.map((weatherData,index) => { */}
 
           <div>
             {this.state.searchData.map((item,index)=>{
-            return <Weather
+              return <Weather
               description={item.description}
               date={item.date}/>
-              })
+            })
             
-            }
+          }
           
       {this.state.movieInfo.map((item,index)=>{
         return <Movie title={item.title}
         image_url={item.image_url}
-        average_votes={item.average_votes}/>
+        average_votes={item.average_votes}/>})}
+        
         </div>
         )
-      }
-      )}
       
-      </div>
-       </>
-      )}
+        
+        
+        
+        </div>
+        </>
+        )
       }
+      }
+      
 
 
 export default App;
